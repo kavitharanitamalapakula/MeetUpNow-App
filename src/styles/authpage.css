@@ -1,0 +1,135 @@
+.auth-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-subContainer {
+    display: flex;
+    flex: 1;
+}
+
+/* Logo Section */
+.auth-logo-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-logo {
+    width: 80%;
+    transition: transform 0.5s ease;
+}
+
+/* Form Section */
+.auth-form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-form-container {
+    width: 80%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(0.5rem);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.25);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.9rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.6em;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    font-size: 1rem;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.7em;
+    margin-top: 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #704264;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.auth-button.button-hover {
+    background-color: #53354a;
+}
+
+.auth-toggle-text {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.auth-toggle-link {
+    background: none;
+    border: none;
+    color: rgb(71, 97, 174);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.75rem;
+    margin-top: 0.3em;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .auth-subContainer {
+        flex-direction: column;
+    }
+
+    .auth-logo-section,
+    .auth-form-section {
+        flex: none;
+        width: 100%;
+    }
+
+    .auth-form-container {
+        width: 90%;
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .auth-logo {
+        width: 60%;
+    }
+}

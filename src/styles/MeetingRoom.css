@@ -1,0 +1,71 @@
+.room-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    color: #353588;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.room-error h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.room-error h1 svg {
+    width: 36px;
+    height: 36px;
+    fill: #2a4787;
+}
+
+.room-error p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.room-error button {
+    background-color: #293a7a;
+    color: white;
+    border: none;
+    padding: 1rem;
+    /* font-size: 1.1rem; */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px  rgba(61, 73, 183, 0.833);
+}
+
+.room-error button:hover {
+    background-color:rgb(61, 73, 183);
+}
+
+@media (max-width: 480px) {
+    .room-error {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .room-error h1 {
+        font-size: 2rem;
+    }
+
+    .room-error p {
+        font-size: 1rem;
+    }
+
+    .room-error button {
+        font-size: 1rem;
+        padding: 10px 24px;
+    }
+}

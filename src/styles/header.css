@@ -1,0 +1,20 @@
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  display: none;
+}
+
+.menu-btn:hover {
+  color: #1abc9c;
+}
+
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+  }
+}
