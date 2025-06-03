@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MeetingSchedule = ({ meetings: propMeetings }) => {
   const [meetings, setMeetings] = useState(propMeetings || []);
-  const [loading, setLoading] = useState(!propMeetings);
+  const [loading, setLoading] = useState(!propMeetings || (propMeetings && propMeetings.length === 0));
   const [error, setError] = useState(null);
   const [copiedMeetingId, setCopiedMeetingId] = useState(null);
   const [startMessage, setStartMessage] = useState(null);
@@ -104,7 +104,7 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
           {startMessage.text}
         </div>
       )}
-      {meetings.length === 0 ? (
+      {!loading && meetings.length === 0 ? (
         <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
           <img src={meetingLogo} alt="MeetingLogo" width={"80%"} height={"20%"} />
           <h4 >No meetings scheduled.</h4>

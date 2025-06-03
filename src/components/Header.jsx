@@ -3,7 +3,7 @@ import '../styles/header.css';
 const Header = ({ toggleSidebar }) => {
   return (
     <header className="header">
-      <div className="left-section">
+      <div className="left-section" style={{ cursor: "pointer" }}>
         <button className="menu-btn" onClick={toggleSidebar} aria-label="Toggle sidebar">
           &#9776;
         </button>
