@@ -1,5 +1,5 @@
 import { auth } from './firebaseConfig';
-import { GoogleAuthProvider, signInWithPopup, signInAnonymously, sendPasswordResetEmail as firebaseSendPasswordResetEmail } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail as firebaseSendPasswordResetEmail } from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 
@@ -18,18 +18,6 @@ export const googleSignIn = async () => {
         const email = error.customData?.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
         throw { errorCode, errorMessage, email, credential };
-    }
-};
-
-export const anonymousSignIn = async () => {
-    try {
-        const result = await signInAnonymously(auth);
-        const user = result.user;
-        return { user };
-    } catch (error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        throw { errorCode, errorMessage };
     }
 };
 

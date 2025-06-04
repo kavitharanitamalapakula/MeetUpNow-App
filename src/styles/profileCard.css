@@ -9,6 +9,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
   transition: box-shadow 0.3s ease;
+  background-color: #e9f0f7;
 }
 
 .profile-container:hover {

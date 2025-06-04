@@ -3,7 +3,7 @@ import transparent from '../../assets/Transparent.png';
 import "../../styles/authPage.css"
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
-import { googleSignIn, anonymousSignIn, sendPasswordResetEmail } from '../../services/authServices';
+import { googleSignIn, sendPasswordResetEmail } from '../../services/authServices';
 
 const AuthPage = () => {
     const navigate = useNavigate();
@@ -342,15 +342,23 @@ const AuthPage = () => {
                                             setIsLoading(true);
                                             setError("");
                                             try {
-                                                const { user } = await anonymousSignIn();
-                                                localStorage.setItem("userInfo", JSON.stringify({
-                                                    uid: user.uid,
-                                                    isAnonymous: user.isAnonymous,
-                                                    accessToken: user.accessToken || null
-                                                }));
+                                                const options = {
+                                                    method: "POST",
+                                                    headers: { "Content-Type": "application/json" },
+                                                    body: JSON.stringify({
+                                                        email: "guest@gmail.com",
+                                                        password: "Guest@12"
+                                                    })
+                                                };
+                                                const response = await fetch(`${baseUrl}/users/signin`, options);
+                                                const data = await response.json();
+                                                if (!response.ok) {
+                                                    throw new Error(data.message || "Request failed");
+                                                }
+                                                localStorage.setItem("userInfo", JSON.stringify(data));
                                                 navigate("/dashboard");
                                             } catch (error) {
-                                                setError(error.errorMessage || "Anonymous sign-in failed");
+                                                setError(error.message || "Sign in failed");
                                             } finally {
                                                 setIsLoading(false);
                                             }
