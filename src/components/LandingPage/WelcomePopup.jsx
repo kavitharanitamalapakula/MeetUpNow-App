@@ -12,8 +12,9 @@ const WelcomePopup = () => {
         const userInfo = JSON.parse(userInfoString);
         if (userInfo.isAnonymous) {
           setUsername('Guest');
-        } else if (userInfo.displayName) {
-          setUsername(userInfo.displayName);
+        }
+        else if (userInfo.user && userInfo.user.username) {
+          setUsername(userInfo.user.username);
         } else if (userInfo.username) {
           setUsername(userInfo.username);
         } else if (userInfo.email) {
@@ -28,6 +29,7 @@ const WelcomePopup = () => {
       setUsername('User');
     }
   }, []);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
