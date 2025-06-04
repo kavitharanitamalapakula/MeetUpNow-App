@@ -18,6 +18,7 @@ const Header = ({ toggleSidebar }) => {
           setTimeout(() => {
             window.location.href = '/';
           }, 1500);
+          localStorage.clear()
         }, 2000);
       })
       .catch((error) => {

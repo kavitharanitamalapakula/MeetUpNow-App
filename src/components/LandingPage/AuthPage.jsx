@@ -171,14 +171,27 @@ const AuthPage = () => {
         setError("");
         try {
             const { user } = await googleSignIn();
-            // You can customize the user info stored as needed
-            localStorage.setItem("userInfo", JSON.stringify({
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                accessToken: user.accessToken
-            }));
+            const idToken = await user.getIdToken();
+
+            // Call your backend API to store user in MongoDB
+            const res = await fetch(`${baseUrl}/users/google-login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: user.displayName,
+                    email: user.email,
+                    avatar: user.photoURL
+                })
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to save user in database");
+            }
+
+            const result = await res.json();
+            localStorage.setItem("userInfo", JSON.stringify(result));
             navigate("/dashboard");
         } catch (error) {
             setError(error.errorMessage || "Google sign-in failed");

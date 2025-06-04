@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { APP_ID, SERVER_SECRET } from './constants';
@@ -118,69 +118,90 @@ const MeetingRoom = () => {
   const [deviceError, setDeviceError] = React.useState(null);
   const [retryCount, setRetryCount] = React.useState(0);
 
+  const myMeeting = async () => {
+    const layout = window.innerHeight > 576;
+    if (!user || !meeting) return;
+    const isHost = user._id == meeting.host;
+
+    if (isHost && !meeting.isActive && !hasStartedMeeting.current) {
+      hasStartedMeeting.current = true;
+      await startMeetByHost();
+    }
+
+    if (!isHost) {
+      const message = await joinMeet(user.email ?? "anonymous@gmail.com", meetingId);
+      if (message === "Meeting not started yet") return;
+    }
+    try {
+      const appID = APP_ID;
+      const serverSecret = SERVER_SECRET;
+      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        appID,
+        serverSecret,
+        meetingId,
+        user._id ?? Date.now().toString(),
+        user.username ?? "Guest"
+      );
+
+      zpInstance.current = ZegoUIKitPrebuilt.create(kitToken);
+
+      await zpInstance.current.joinRoom({
+
+        container: document.querySelector('.myCallContainer'),
+        sharedLinks: [
+          {
+            name: 'Personal link',
+            url: `${window.location.origin}/room/${meetingId}`,
+          },
+        ],
+        scenario: { mode: ZegoUIKitPrebuilt.GroupCall },
+        showPreJoinView: true,
+        preJoinViewConfig: { title: "Join the Meeting" },
+        layout: "Grid",
+        showLayoutButton: layout,
+        turnOnMicrophoneWhenJoining: false,
+        turnOnCameraWhenJoining: true,
+        useFrontFacingCamera: true,
+        videoResolutionDefault: "720p",
+        enableStereo: true,
+        showTurnOffRemoteCameraButton: isHost,
+        showTurnOffRemoteMicrophoneButton: isHost,
+        showRemoveUserButton: isHost,
+        videoScreenConfig: 'fill',
+        onLeaveRoom: () => {
+          navigate("/dashboard");
+        },
+      });
+
+      setDeviceError(null);
+    } catch (err) {
+      console.error("Error initializing meeting:", err);
+      if (err.name === 'NotAllowedError' || err.message.includes('NotAllowedError')) {
+        setDeviceError('Camera and microphone access was denied. Please allow access and retry.');
+      } else {
+        setDeviceError('Failed to access media devices. Please check your device and permissions.');
+      }
+    }
+  };
+
   useEffect(() => {
-    const myMeeting = async () => {
-      const layout = window.innerHeight > 576;
-      if (!user || !meeting) return;
-      const isHost = user._id == meeting.host;
 
-      if (isHost && !meeting.isActive && !hasStartedMeeting.current) {
-        hasStartedMeeting.current = true;
-        await startMeetByHost();
-      }
-
-      if (!isHost) {
-        const message = await joinMeet(user.email ?? "anonymous@gmail.com", meetingId);
-        if (message === "Meeting not started yet") return;
-      }
-      try {
-        const appID = APP_ID;
-        const serverSecret = SERVER_SECRET;
-        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-          appID,
-          serverSecret,
-          meetingId,
-          user._id ?? Date.now().toString(),
-          user.username ?? "Guest"
-        );
-
-        zpInstance.current = ZegoUIKitPrebuilt.create(kitToken);
-
-        await zpInstance.current.joinRoom({
-          container: document.querySelector('.myCallContainer'),
-          sharedLinks: [
-            {
-              name: 'Personal link',
-              url: `${window.location.origin}/room/${meetingId}`,
-            },
-          ],
-          scenario: { mode: ZegoUIKitPrebuilt.GroupCall },
-          showPreJoinView: true,
-          preJoinViewConfig: { title: "Join the Meeting" },
-          layout: "Grid",
-          showLayoutButton: layout,
-          turnOnMicrophoneWhenJoining: false,
-          turnOnCameraWhenJoining: true,
-          useFrontFacingCamera: true,
-          videoResolutionDefault: "720p",
-          enableStereo: true,
-          showTurnOffRemoteCameraButton: isHost,
-          showTurnOffRemoteMicrophoneButton: isHost,
-          showRemoveUserButton: isHost,
-          videoScreenConfig: 'fill',
-        });
-        setDeviceError(null);
-      } catch (err) {
-        console.error("Error initializing meeting:", err);
-        if (err.name === 'NotAllowedError' || err.message.includes('NotAllowedError')) {
-          setDeviceError('Camera and microphone access was denied. Please allow access and retry.');
-        } else {
-          setDeviceError('Failed to access media devices. Please check your device and permissions.');
-        }
-      }
-    };
 
     myMeeting();
+
+    return () => {
+      if (zpInstance.current) {
+        try {
+          zpInstance.current.destroy();
+        } catch (err) {
+          console.warn("Zego instance cleanup failed:", err);
+        }
+        zpInstance.current = null;
+        hasJoinedMeeting.current = false;
+        hasStartedMeeting.current = false;
+      }
+    }
+
   }, [user, meeting, retryCount]);
 
   const handleRetry = () => {

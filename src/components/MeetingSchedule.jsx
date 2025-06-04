@@ -113,34 +113,34 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
         <div className="meeting-list">
           <h2>Meeting Scheduled</h2>
           <div className='scheduleRoom'>
-{meetings.map((meeting) => (
-  <div key={meeting.meetingId} className="meeting-card">
-    <div className="card-header">
-      <h3>{meeting.title}</h3>
-      <button className="menu-btn" disabled>
-        <FaEllipsisV />
-      </button>
-    </div>
-    <p className="datetime">
-      {new Date(meeting.date).toLocaleString()}
-    </p>
-    <p className={`status ${getMeetingStatus(meeting).toLowerCase()}`}>
-      {getMeetingStatusIcon(meeting)} {getMeetingStatus(meeting)}
-    </p>
-    <p className="description">{meeting.description}</p>
-    <div className="card-actions">
-      <button className="start-btn" onClick={() => handleStartMeeting(meeting.meetingId)}>
-        <FaPlay /> Start
-      </button>
-      <button
-        className="copy-btn"
-        onClick={() => handleCopyClick(meeting.meetingId)}
-      >
-        <FaCopy /> Copy Link
-      </button>
-    </div>
-  </div>
-))}
+            {meetings.map((meeting) => (
+              <div key={meeting.meetingId} className="meeting-card">
+                <div className="card-header">
+                  <h3>{meeting.title}</h3>
+                  <button className="menu-btn" disabled>
+                    <FaEllipsisV />
+                  </button>
+                </div>
+                <p className="datetime">
+                  {new Date(meeting.date).toLocaleString()}
+                </p>
+                <p className={`status ${getMeetingStatus(meeting).toLowerCase()}`}>
+                  {getMeetingStatusIcon(meeting)} {getMeetingStatus(meeting)}
+                </p>
+                <p className="description">{meeting.description}</p>
+                <div className="card-actions">
+                  <button className="start-btn" onClick={() => handleStartMeeting(meeting.meetingId)}>
+                    <FaPlay /> Start
+                  </button>
+                  <button
+                    className="copy-btn"
+                    onClick={() => handleCopyClick(meeting.meetingId)}
+                  >
+                    <FaCopy /> Copy Link
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
