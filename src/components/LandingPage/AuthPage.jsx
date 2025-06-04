@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import transparent from '../../assets/Transparent.png';
+import logoDesktop from '../../assets/Transparent.png';
+import logoMobile from '../../assets/ResponsiveLogo.png';
 import "../../styles/authPage.css"
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
@@ -12,6 +13,13 @@ const AuthPage = () => {
     const [fadeIn, setFadeIn] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -206,7 +214,7 @@ const AuthPage = () => {
 
                 <div className="auth-logo-section">
                     <img
-                        src={transparent}
+                        src={isMobile ? logoMobile : logoDesktop}
                         alt="LinkUp Logo"
                         className={`auth-logo ${fadeIn ? 'fade-in' : ''}`}
                     />
