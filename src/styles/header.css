@@ -18,3 +18,38 @@
     display: block;
   }
 }
+
+/* Logout popup styles */
+.logout-popup {
+  position: fixed;
+  top: 20px;
+  left: 40%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: #0322ce;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  animation: slideInFromTop 0.5s ease forwards;
+}
+
+/* Added header layout styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1f2a38; /* example background color */
+  color: white;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

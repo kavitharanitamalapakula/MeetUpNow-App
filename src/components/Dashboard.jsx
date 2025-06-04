@@ -5,6 +5,7 @@ import "../styles/dashboard.css"
 import ProfileCard from './Profile';
 import MeetingSchedule from './MeetingSchedule';
 import Header from './Header';
+import WelcomePopup from './LandingPage/WelcomePopup';
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,6 +33,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <Header toggleSidebar={toggleSidebar} />
+      <WelcomePopup />
       <Sidebar isOpen={isSidebarOpen} onMenuSelect={handleMenuSelect} ongoingMeetings={ongoingMeetings} />
       <main className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         {selectedMenu === 'home' && <Home onMeetingAdd={handleMeetingAdd} />}

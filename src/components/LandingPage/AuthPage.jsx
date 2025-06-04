@@ -3,6 +3,7 @@ import transparent from '../../assets/Transparent.png';
 import "../../styles/authPage.css"
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
+import { googleSignIn, anonymousSignIn, sendPasswordResetEmail } from '../../services/authServices';
 
 const AuthPage = () => {
     const navigate = useNavigate();
@@ -165,6 +166,26 @@ const AuthPage = () => {
         });
     };
 
+    const handleGoogleSignIn = async () => {
+        setIsLoading(true);
+        setError("");
+        try {
+            const { user } = await googleSignIn();
+            // You can customize the user info stored as needed
+            localStorage.setItem("userInfo", JSON.stringify({
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                accessToken: user.accessToken
+            }));
+            navigate("/dashboard");
+        } catch (error) {
+            setError(error.errorMessage || "Google sign-in failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="auth-container">
@@ -236,7 +257,22 @@ const AuthPage = () => {
                                     <p
                                         className="forgot-password"
                                         style={{ color: "#007bff", cursor: "pointer", marginTop: "5px", fontSize: "0.9em", textAlign: "end" }}
-                                        onClick={() => alert("Forgot Password clicked")}
+                                        onClick={async () => {
+                                            if (!formData.email) {
+                                                setError("Please enter your email to reset password");
+                                                return;
+                                            }
+                                            setIsLoading(true);
+                                            setError("");
+                                            try {
+                                                await sendPasswordResetEmail(formData.email);
+                                                setError("Password reset email sent! Please check your inbox.");
+                                            } catch (err) {
+                                                setError(err.errorMessage || "Failed to send password reset email");
+                                            } finally {
+                                                setIsLoading(false);
+                                            }
+                                        }}
                                     >
                                         Forgot Password?
                                     </p>
@@ -272,7 +308,7 @@ const AuthPage = () => {
                                     <button
                                         type="button"
                                         className="auth-continue-button google"
-                                        onClick={() => alert('Continue with Google clicked')}
+                                        onClick={handleGoogleSignIn}
                                         style={{
                                             margin: "5px",
                                             padding: "10px 20px",
@@ -289,7 +325,23 @@ const AuthPage = () => {
                                     <button
                                         type="button"
                                         className="auth-continue-button guest"
-                                        onClick={() => alert('Continue as Guest clicked')}
+                                        onClick={async () => {
+                                            setIsLoading(true);
+                                            setError("");
+                                            try {
+                                                const { user } = await anonymousSignIn();
+                                                localStorage.setItem("userInfo", JSON.stringify({
+                                                    uid: user.uid,
+                                                    isAnonymous: user.isAnonymous,
+                                                    accessToken: user.accessToken || null
+                                                }));
+                                                navigate("/dashboard");
+                                            } catch (error) {
+                                                setError(error.errorMessage || "Anonymous sign-in failed");
+                                            } finally {
+                                                setIsLoading(false);
+                                            }
+                                        }}
                                         style={{
                                             margin: "5px",
                                             padding: "10px 20px",
