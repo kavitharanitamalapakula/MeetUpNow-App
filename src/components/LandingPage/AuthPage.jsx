@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logoDesktop from '../../assets/Transparent.png';
 import logoMobile from '../../assets/ResponsiveLogo.png';
 import "../../styles/authPage.css"
@@ -14,6 +15,7 @@ const AuthPage = () => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -70,7 +72,12 @@ const AuthPage = () => {
             if (!value.trim()) {
                 error = 'Password is required';
             } else if (!passwordPattern.test(value)) {
-                error = 'Password must be 8-16 chars, with uppercase, number & special char';
+                // Show detailed error only if not in login mode
+                if (!isLogin) {
+                    error = 'Password must be 8-16 chars, with uppercase, number & special char';
+                } else {
+                    error = '';
+                }
             }
         }
 
@@ -124,7 +131,7 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validationForm()) {
-            setError("Please fix the errors above before submitting");
+            setError("");
             return;
         }
 
@@ -264,15 +271,43 @@ const AuthPage = () => {
 
                             <div className="form-group">
                                 <label className="form-label" htmlFor="password">Password<sup style={{ color: "red" }}>*</sup></label>
+                            <div style={{ position: 'relative' }}>
                                 <input
                                     id='password'
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     className="form-input"
                                     placeholder="Enter password"
                                     value={formData.password}
                                     onChange={handleChange}
                                     onBlur={(e) => validateField('password', e.target.value)}
                                 />
+                                <span
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        cursor: 'pointer',
+                                        userSelect: 'none',
+                                        color: '#888'
+                                    }}
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            setShowPassword(!showPassword);
+                                        }
+                                    }}
+                                >
+                                    {showPassword ? (
+                                        <FaEyeSlash size={20} />
+                                    ) : (
+                                        <FaEye size={20} />
+                                    )}
+                                </span>
+                            </div>
                                 {formErrors.password && <p className="error-text">{formErrors.password}</p>}
                                 {isLogin && (
                                     <p

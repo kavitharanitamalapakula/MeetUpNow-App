@@ -19,6 +19,7 @@ function Profile() {
         newPassword: "",
         confirmPassword: ""
     });
+    const [passwordError, setPasswordError] = useState("");
 
     // Image Preview
     const inputRef = useRef(null)
@@ -61,9 +62,21 @@ function Profile() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[$%&#@]).{8,16}$/;
+
     const handlePasswordChange = (e) => {
         const { name, value } = e.target;
         setPasswordData(prev => ({ ...prev, [name]: value }));
+
+        if (name === "newPassword") {
+            if (!value.trim()) {
+                setPasswordError("")
+            } else if (!passwordPattern.test(value)) {
+                setPasswordError("Password must be 8-16 chars, with uppercase, number & special char.");
+            } else {
+                setPasswordError("");
+            }
+        }
     };
 
     const handleSaveField = async (field) => {
@@ -158,6 +171,10 @@ function Profile() {
         } catch (err) {
             alert("Error resetting password.");
         }
+    };
+
+    const isValidPassword = (password) => {
+        return passwordPattern.test(password);
     };
 
     const renderField = (label, fieldName, icon, isLink = false) => {
@@ -294,29 +311,42 @@ function Profile() {
                     <div className="password-section">
                         {!showPasswordFields ? (
                             <button className="reset-btn" onClick={() => setShowPasswordFields(true)}>
-                                Reset Password
+                                Change Password
                             </button>
                         ) : (
                             <>
-                                <div className="password-inputs">
-                                    <input
-                                        type="password"
-                                        name="newPassword"
-                                        placeholder="New password"
-                                        value={passwordData.newPassword}
-                                        onChange={handlePasswordChange}
-                                        className="profile-edit-input"
-                                    />
-                                    <input
-                                        type="password"
-                                        name="confirmPassword"
-                                        placeholder="Confirm password"
-                                        value={passwordData.confirmPassword}
-                                        onChange={handlePasswordChange}
-                                        className="profile-edit-input"
-                                    />
-                                </div>
-                                <button className="reset-btn" onClick={handleResetPassword}>Update</button>
+<div className="password-inputs">
+    <div className="input-with-error">
+        <input
+            type="password"
+            name="newPassword"
+            placeholder="New password"
+            value={passwordData.newPassword}
+            onChange={handlePasswordChange}
+            className="profile-edit-input"
+        />
+        <p className="error-text">
+            {passwordError}
+        </p>
+    </div>
+    <div className="input-with-error">
+        <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            value={passwordData.confirmPassword}
+            onChange={handlePasswordChange}
+            className="profile-edit-input"
+        />
+    </div>
+</div>
+                                <button
+                                    className="reset-btn"
+                                    onClick={handleResetPassword}
+                                    disabled={!isValidPassword(passwordData.newPassword) || !passwordData.confirmPassword}
+                                >
+                                    Update
+                                </button>
                                 <button className="cancel-btn" onClick={() => setShowPasswordFields(false)}>Cancel</button>
                             </>
                         )}

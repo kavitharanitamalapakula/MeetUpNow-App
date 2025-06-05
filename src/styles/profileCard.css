@@ -27,6 +27,8 @@
   box-shadow: 0 6px 14px rgb(0 0 0 / 0.15);
   cursor: pointer;
   transition: box-shadow 0.3s ease;
+  width: 200px;
+  height: 200px;
 }
 
 .profile-avatar-wrapper:hover {
@@ -103,6 +105,13 @@
   background-color: #1f598b;
 }
 
+.reset-btn:disabled,
+.reset-btn[disabled] {
+  background-color: #0d6efd;
+  cursor: not-allowed;
+  color: #ecf0f1;
+}
+
 .cancel-btn {
   background-color: #bdc3c7;
   color: #2c3e50;
@@ -133,6 +142,23 @@
 .profile-edit-input:focus {
   outline: none;
   border-color: #1abc9c;
+}
+
+.error-text {
+  height: 1.2em;
+  margin: 0;
+  padding: 0;
+  color: #e74c3c;
+  font-size: 0.9rem;
+  visibility: visible;
+  transition: visibility 0.3s ease;
+}
+
+.error-text.hidden {
+  visibility: hidden;
+  height: 1.2em;
+  margin: 0;
+  padding: 0;
 }
 
 .profile-details a {
@@ -230,4 +256,20 @@
 
 .custom-btn-secondary:hover {
   background-color: #9ea7af;
+}
+
+.input-with-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 65%;
+  max-width: 280px;
+}
+
+.input-with-error .error-text {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #e74c3c;
+  height: auto;
+  visibility: visible;
 }

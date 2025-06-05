@@ -169,6 +169,7 @@ const MeetingRoom = () => {
         showRemoveUserButton: isHost,
         videoScreenConfig: 'fill',
         onLeaveRoom: () => {
+          
           navigate("/dashboard");
         },
       });

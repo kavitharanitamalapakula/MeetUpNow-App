@@ -202,7 +202,7 @@ const MeetingPanel = () => {
                 setFormData({ title: '', description: '', datetime: null });
                 setShowModal(false);
                 setShowConfirmation(true);
-                setTimeout(() => setShowConfirmation(false), 3000);
+                setTimeout(() => setShowConfirmation(false), 100000);
             } catch (error) {
                 console.error('Error saving meeting:', error.message);
             }
@@ -242,7 +242,7 @@ const MeetingPanel = () => {
                     value={meetingId}
                     onChange={(e) => setMeetingId(e.target.value)}
                 />
-                <button onClick={handleJoinMeeting} className="join-button">
+                <button onClick={handleJoinMeeting} className="join-button" disabled={!meetingId.trim()}>
                     <FaReply className="join-icon" />
                     Join
                 </button>
@@ -321,24 +321,18 @@ const MeetingPanel = () => {
                 <div
                     aria-live="polite"
                     aria-atomic="true"
-                    style={{
-                        backgroundColor: "rgb(183, 219, 255)",
-                        color: "black",
-                        position: 'fixed',
-                        top: 20,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        zIndex: 9999,
-                        transition: 'transform 0.3s ease-out',
-                    }}
+                    className="toast-notification-container"
                 >
                     <Toast
                         onClose={() => setShowConfirmation(false)}
                         show={showConfirmation}
                         delay={3000}
                         autohide
+                        className="toast-notification"
                     >
-                        <Toast.Body>Your meeting has been scheduled!</Toast.Body>
+                        <Toast.Body>
+                            ✅ <strong>Success:</strong> Your meeting has been scheduled!
+                        </Toast.Body>
                     </Toast>
                 </div>
             )}
