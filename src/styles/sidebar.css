@@ -72,10 +72,14 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    left: -240px;
+    transform: translateX(-240px);
   }
 
   .sidebar.open {
-    left: 0;
+    transform: translateX(0);
   }
+}
+
+.sidebar {
+  transition: transform 0.3s ease;
 }

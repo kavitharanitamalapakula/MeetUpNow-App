@@ -122,9 +122,9 @@
   transition: color 0.3s ease;
 }
 
-.menu-btn:hover {
+/* .menu-btn:hover {
   color: #34495e;
-}
+} */
 
 .datetime {
   color: #34495e;
@@ -234,5 +234,13 @@
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+@media (max-width:768px) {
+  .scheduleRoom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

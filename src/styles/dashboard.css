@@ -51,8 +51,9 @@
   }
 
   .sidebar {
-    width: 100%;
-    height: auto;
+    position: absolute;
+    z-index: 1000;
+    /* left: 0px; */
   }
 
   .main-content {

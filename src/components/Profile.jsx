@@ -20,6 +20,7 @@ function Profile() {
         confirmPassword: ""
     });
     const [passwordError, setPasswordError] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
 
     // Image Preview
     const inputRef = useRef(null)
@@ -162,9 +163,10 @@ function Profile() {
             });
 
             if (res.ok) {
-                alert("Password reset successful.");
+                setShowPopup(true);
                 setPasswordData({ newPassword: "", confirmPassword: "" });
                 setShowPasswordFields(false);
+                setTimeout(() => setShowPopup(false), 3000);
             } else {
                 alert("Failed to reset password.");
             }
@@ -228,6 +230,11 @@ function Profile() {
     if (!user) return <div className="profile-container">User not found</div>;
     return (
         <div className="profile-container">
+            {showPopup && (
+                <div className="popup-message" style={{ color: "gray" }}>
+                    Password updated successful.
+                </div>
+            )}
             <div className="profile-header">
                 <div className="avatar-upload-wrapper">
                     <div className="profile-avatar-wrapper">
@@ -315,31 +322,31 @@ function Profile() {
                             </button>
                         ) : (
                             <>
-<div className="password-inputs">
-    <div className="input-with-error">
-        <input
-            type="password"
-            name="newPassword"
-            placeholder="New password"
-            value={passwordData.newPassword}
-            onChange={handlePasswordChange}
-            className="profile-edit-input"
-        />
-        <p className="error-text">
-            {passwordError}
-        </p>
-    </div>
-    <div className="input-with-error">
-        <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            value={passwordData.confirmPassword}
-            onChange={handlePasswordChange}
-            className="profile-edit-input"
-        />
-    </div>
-</div>
+                                <div className="password-inputs">
+                                    <div className="input-with-error">
+                                        <input
+                                            type="password"
+                                            name="newPassword"
+                                            placeholder="New password"
+                                            value={passwordData.newPassword}
+                                            onChange={handlePasswordChange}
+                                            className="profile-edit-input"
+                                        />
+                                        <p className="error-text">
+                                            {passwordError}
+                                        </p>
+                                    </div>
+                                    <div className="input-with-error">
+                                        <input
+                                            type="password"
+                                            name="confirmPassword"
+                                            placeholder="Confirm password"
+                                            value={passwordData.confirmPassword}
+                                            onChange={handlePasswordChange}
+                                            className="profile-edit-input"
+                                        />
+                                    </div>
+                                </div>
                                 <button
                                     className="reset-btn"
                                     onClick={handleResetPassword}
