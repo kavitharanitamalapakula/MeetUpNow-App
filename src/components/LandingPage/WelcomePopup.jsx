@@ -45,9 +45,6 @@ const WelcomePopup = () => {
     <div className="welcome-popup">
       <div className="welcome-popup-content">
         <span>🎉 Welcome, {username}!</span>
-        <button className="close-btn" onClick={() => setVisible(false)} aria-label="Close welcome popup">
-          &times;
-        </button>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('home');
   const [meetings, setMeetings] = useState([]);
- 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
   };
@@ -34,12 +34,19 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <Header toggleSidebar={toggleSidebar} />
       <WelcomePopup />
-      <Sidebar isOpen={isSidebarOpen} onMenuSelect={handleMenuSelect} ongoingMeetings={ongoingMeetings} />
-      <main className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-        {selectedMenu === 'home' && <Home onMeetingAdd={handleMeetingAdd} />}
-        {selectedMenu === 'meeting' && <MeetingSchedule meetings={meetings} />}
-        {selectedMenu === 'profile' && <ProfileCard />}
-      </main>
+
+      <div className="dashboard-body">            
+        <Sidebar
+          isOpen={isSidebarOpen}
+          onMenuSelect={handleMenuSelect}
+          ongoingMeetings={ongoingMeetings}
+        />                                   
+        <main className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+          {selectedMenu === 'home' && <Home onMeetingAdd={handleMeetingAdd} />}
+          {selectedMenu === 'meeting' && <MeetingSchedule meetings={meetings} />}
+          {selectedMenu === 'profile' && <ProfileCard />}
+        </main>                        
+      </div>
     </div>
   );
 };

@@ -1,21 +1,14 @@
-.sidebar {
+.sidebar-nav {
   width: 220px;
-  background-color: #1f2a38;
-  color: white;
+  padding: 20px 0;
   height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0; 
-  transition: left 0.3s ease, background-color 0.3s ease;
-  padding-top: 70px;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.sidebar nav ul {
+.sidebar-nav ul {
   list-style: none;
-  padding: 1.5rem;
+  padding: 0;
   margin: 0;
 }
 
@@ -32,34 +25,57 @@
   transition: background-color 0.3s ease, color 0.3s ease;
   font-weight: 600;
   cursor: pointer;
-}
-
-.sidebar nav ul li .menu-item:hover {
-  background-color: #34495e;
-  color: #4b6cb7;
-}
-
-.menu-item .icon {
-  font-size: 22px;
-  margin-right: 14px; 
-  transition: color 0.3s ease;
-}
-
-.sidebar nav ul li .menu-item:hover .icon {
-  color: #4b6cb7;
+  outline: none;
 }
 
 .sidebar nav ul li .menu-item .label {
   font-size: 16px;
 }
 
-/* ------- Responsive: Small screens ------- */
+.menu-list-item:focus,
+.menu-list-item:hover {
+  background-color: #34495e;
+  cursor: pointer;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  color: #cfd8dc;
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.menu-item .icon {
+  font-size: 22px;
+  color: #81d4fa;
+  transition: color 0.3s ease;
+}
+
+.menu-list-item:focus .icon,
+.menu-list-item:hover .icon {
+  color: #4fc3f7;
+}
+
+.menu-list-item.active,
+.menu-list-item.active .menu-item {
+  background-color: #0288d1;
+  color: white;
+}
+
+.menu-list-item.active .icon {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .sidebar {
     left: -240px;
   }
 
   .sidebar.open {
-    left: 0; 
+    left: 0;
   }
 }

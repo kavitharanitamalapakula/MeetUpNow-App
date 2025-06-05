@@ -106,7 +106,7 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
       )}
       {!loading && meetings.length === 0 ? (
         <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-          <img src={meetingLogo} alt="MeetingLogo" width={"80%"} height={"20%"} />
+          <img src={meetingLogo} alt="MeetingLogo" width={"50%"} height={"20%"} />
           <h4 >No meetings scheduled.</h4>
         </div>
       ) : (

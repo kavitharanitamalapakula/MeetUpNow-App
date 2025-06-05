@@ -1,6 +1,6 @@
 .custom-carousel {
-  background-color: #f4f8ff;
-  padding: 1rem;
+  background-color: #ffffff;
+  padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   max-width: 400px;
@@ -13,7 +13,7 @@
 }
 
 .carousel-image {
-  width: 50%;
+  width: 60%;
   max-width: 280px;
   min-width: 200px;
   height: auto;
@@ -34,6 +34,22 @@
   margin: 0 auto;
 }
 
+.carousel-inner h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.carousel-inner p {
+  font-size: 1rem;
+  color: #666;
+  max-width: 90%;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -46,7 +62,6 @@
   }
 }
 
-/* Responsive adjustments */
 
 @media (max-width: 576px) {
   .custom-carousel img {

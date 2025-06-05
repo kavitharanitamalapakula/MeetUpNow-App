@@ -58,7 +58,7 @@ const MeetingPanel = () => {
     };
     const [roomIdInput, setRoomIdInput] = useState('');
 
-const handleMeetingRoom = async () => {
+    const handleMeetingRoom = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem("userInfo"))
             // First, create a meeting
@@ -117,7 +117,7 @@ const handleMeetingRoom = async () => {
         }
     }
 
-const handleJoinMeeting = async () => {
+    const handleJoinMeeting = async () => {
         if (!meetingId.trim()) {
             setError('Please enter a valid meeting ID');
             return;
