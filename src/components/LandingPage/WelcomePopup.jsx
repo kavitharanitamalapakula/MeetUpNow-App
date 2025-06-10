@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/WelcomePopup.css';
+import bubbleSound from '../../assets/bubble-sound.wav';
 
 const WelcomePopup = () => {
   const [username, setUsername] = useState('');
   const [visible, setVisible] = useState(true);
+
+  // Create audio object
+  const audio = new Audio(bubbleSound);
 
   useEffect(() => {
     const userInfoString = localStorage.getItem('userInfo');
@@ -30,14 +34,17 @@ const WelcomePopup = () => {
     }
   }, []);
 
-
   useEffect(() => {
+    // Play sound when popup becomes visible
+    if (visible) {
+      audio.play();
+    }
     const timer = setTimeout(() => {
       setVisible(false);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [visible]);
 
   if (!visible) return null;
 

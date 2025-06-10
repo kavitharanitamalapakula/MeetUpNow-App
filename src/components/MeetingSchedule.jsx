@@ -91,7 +91,7 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
     fetchMeetings();
   }, []);
 
-  if (loading) return <p>Loading meetings...</p>;
+  if (loading) return <p style={{display:"flex", justifyContent:"center",alignItems:"center"}}>Loading meetings...</p>;
   if (error) return <p>{error}</p>;
 
   return (

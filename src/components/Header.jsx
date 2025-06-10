@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../assets/Logo.png';
 import "../styles/dashboard.css"
 import '../styles/header.css';
 import { auth } from '../services/firebaseConfig';
 import { signOut } from 'firebase/auth';
 import Loader from './LandingPage/Loader';
+import bubbleSound from '../assets/bubble-sound.wav';
 
 const Header = ({ toggleSidebar }) => {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
+
+  // Create audio object
+  const audio = new Audio(bubbleSound);
+
+  useEffect(() => {
+    if (showLogoutPopup) {
+      audio.play();
+    }
+  }, [showLogoutPopup]);
 
   const handleLogout = () => {
     signOut(auth)

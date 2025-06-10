@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Ensure Bootstrap JS is imported for modal events
 import {
     Edit, Check, Linkedin, Github, Mail, Phone, Calendar, Upload
 } from "lucide-react";
 import '../styles/profileCard.css';
 import { baseUrl } from "../App";
+import bubbleSound from '../assets/bubble-sound.wav';
 
 // const BASE_URL = "http://localhost:5000/api/users";
 
@@ -21,6 +23,10 @@ function Profile() {
     });
     const [passwordError, setPasswordError] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const [showNoFilePopup, setShowNoFilePopup] = useState(false);
+
+    // Create audio object
+    const audio = new Audio(bubbleSound);
 
     // Image Preview
     const inputRef = useRef(null)
@@ -31,6 +37,26 @@ function Profile() {
             setAvatarPreview(url)
         }
     }
+
+    // Clear file input and avatar preview when modal closes
+    useEffect(() => {
+        const modalElement = document.getElementById("exampleModal");
+        if (!modalElement) return;
+
+        const handleModalClose = () => {
+            if (inputRef.current) {
+                inputRef.current.value = "";
+            }
+            setAvatarPreview(null);
+        };
+
+        modalElement.addEventListener("hidden.bs.modal", handleModalClose);
+
+        return () => {
+            modalElement.removeEventListener("hidden.bs.modal", handleModalClose);
+        };
+    }, []);
+
     useEffect(() => {
         const storedUser = localStorage.getItem("userInfo");
         if (storedUser) {
@@ -179,6 +205,13 @@ function Profile() {
         return passwordPattern.test(password);
     };
 
+    // Play sound when showPopup or showNoFilePopup changes to true
+    useEffect(() => {
+        if (showPopup || showNoFilePopup) {
+            audio.play();
+        }
+    }, [showPopup, showNoFilePopup]);
+
     const renderField = (label, fieldName, icon, isLink = false) => {
         const value = user[fieldName];
         const isDefaultLink =
@@ -225,7 +258,7 @@ function Profile() {
         );
     };
 
-    if (loading) return <div className="profile-container">Loading...</div>;
+    if (loading) return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", }} className="profile-container" >Loading...</div>;
     if (error) return <div className="profile-container error-text">{error}</div>;
     if (!user) return <div className="profile-container">User not found</div>;
     return (
@@ -233,6 +266,11 @@ function Profile() {
             {showPopup && (
                 <div className="popup-message" style={{ color: "gray" }}>
                     Password updated successful.
+                </div>
+            )}
+            {showNoFilePopup && (
+                <div className="popup-message" style={{ color: "red" ,backgroundColor:"white"}}>
+                    No file selected.
                 </div>
             )}
             <div className="profile-header">
@@ -289,12 +327,18 @@ function Profile() {
                                             const file = inputRef.current?.files?.[0];
                                             if (file) {
                                                 const e = { target: { files: [file] } };
+
                                                 await handleAvatarChange(e);
                                                 document
                                                     .querySelector("#exampleModal .btn.btn-secondary")
                                                     ?.click();
+                                                if (inputRef.current) {
+                                                    inputRef.current.value = '';
+                                                }
                                             } else {
-                                                alert("No file selected.");
+                                                // alert("No file selected.");
+                                                setShowNoFilePopup(true);
+                                                setTimeout(() => setShowNoFilePopup(false), 3000);
                                             }
                                         }}
                                     >

@@ -8,6 +8,8 @@ import DatePicker from 'react-datepicker';
 import { useNavigate } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import bubbleSound from '../assets/bubble-sound.wav';
+
 import { baseUrl } from '../App';
 import { fetchWithToken } from '../services/fetchWithToken';
 
@@ -22,6 +24,8 @@ const MeetingPanel = () => {
     const [errors, setErrors] = useState({});
     const [showConfirmation, setShowConfirmation] = useState(false);
     const panelRef = useRef(null);
+
+    const audioRef = useRef(new Audio(bubbleSound));
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -38,6 +42,27 @@ const MeetingPanel = () => {
 
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [showOptions]);
+
+    useEffect(() => {
+        if (showOptions) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+        }
+    }, [showOptions]);
+
+    useEffect(() => {
+        if (showModal) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+        }
+    }, [showModal]);
+
+    useEffect(() => {
+        if (showConfirmation) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+        }
+    }, [showConfirmation]);
 
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
