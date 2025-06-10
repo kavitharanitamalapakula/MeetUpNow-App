@@ -313,9 +313,6 @@
 }
 
 @media (max-width:768px) {
-  body{
-    /* overflow: hidden; */
-  }
   .profile-header {
     display: flex;
     justify-content: center;

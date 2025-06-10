@@ -178,6 +178,11 @@
 }
 
 @media (max-width: 768px) {
+  .left-section{
+    img{
+      display: none;
+    }
+  }
   .menu-btn {
     display: block;
   }
