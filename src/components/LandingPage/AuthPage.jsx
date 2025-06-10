@@ -6,6 +6,7 @@ import "../../styles/authpage.css"
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 import { googleSignIn, sendPasswordResetEmail } from '../../services/authServices';
+import { FcGoogle } from 'react-icons/fc';
 
 const AuthPage = () => {
     const navigate = useNavigate();
@@ -271,43 +272,43 @@ const AuthPage = () => {
 
                             <div className="form-group">
                                 <label className="form-label" htmlFor="password">Password<sup style={{ color: "red" }}>*</sup></label>
-                            <div style={{ position: 'relative' }}>
-                                <input
-                                    id='password'
-                                    type={showPassword ? "text" : "password"}
-                                    className="form-input"
-                                    placeholder="Enter password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    onBlur={(e) => validateField('password', e.target.value)}
-                                />
-                                <span
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    style={{
-                                        position: 'absolute',
-                                        right: '10px',
-                                        top: '50%',
-                                        transform: 'translateY(-50%)',
-                                        cursor: 'pointer',
-                                        userSelect: 'none',
-                                        color: '#888'
-                                    }}
-                                    aria-label={showPassword ? "Hide password" : "Show password"}
-                                    role="button"
-                                    tabIndex={0}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' || e.key === ' ') {
-                                            setShowPassword(!showPassword);
-                                        }
-                                    }}
-                                >
-                                    {showPassword ? (
-                                        <FaEyeSlash size={20} />
-                                    ) : (
-                                        <FaEye size={20} />
-                                    )}
-                                </span>
-                            </div>
+                                <div style={{ position: 'relative' }}>
+                                    <input
+                                        id='password'
+                                        type={showPassword ? "text" : "password"}
+                                        className="form-input"
+                                        placeholder="Enter password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        onBlur={(e) => validateField('password', e.target.value)}
+                                    />
+                                    <span
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        style={{
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '50%',
+                                            transform: 'translateY(-50%)',
+                                            cursor: 'pointer',
+                                            userSelect: 'none',
+                                            color: '#888'
+                                        }}
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                setShowPassword(!showPassword);
+                                            }
+                                        }}
+                                    >
+                                        {showPassword ? (
+                                            <FaEyeSlash size={20} />
+                                        ) : (
+                                            <FaEye size={20} />
+                                        )}
+                                    </span>
+                                </div>
                                 {formErrors.password && <p className="error-text">{formErrors.password}</p>}
                                 {isLogin && (
                                     <p
@@ -350,15 +351,6 @@ const AuthPage = () => {
                                     {formErrors.confirmPassword && <p className="error-text">{formErrors.confirmPassword}</p>}
                                 </div>
                             )}
-
-                            {isLogin && (
-                                <div className="demo" style={{ marginBottom: "5px", textAlign: "center", padding: "8px", borderRadius: "5px", color: "black" }}>
-                                    <h6 style={{ marginBottom: "5px", color: "red" }}>Demo Credentials</h6>
-                                    <p style={{ margin: 0, color: "green" }}>Email: <b>demo@gmail.com</b></p>
-                                    <p style={{ margin: 0, color: "green" }}>Password: <b>Demo@123</b></p>
-                                </div>
-                            )}
-
                             {isLogin && (
                                 <div className="auth-continue-options" style={{ marginTop: "10px", textAlign: "center" }}>
                                     <button
@@ -368,15 +360,16 @@ const AuthPage = () => {
                                         style={{
                                             margin: "5px",
                                             padding: "10px 20px",
-                                            backgroundColor: "#4285F4",
+                                            backgroundColor: "#2c3e50",
                                             color: "white",
                                             border: "none",
                                             borderRadius: "4px",
                                             cursor: "pointer",
-                                            fontWeight: "bold"
+                                            fontWeight: "bold",
+                                            fontSize: "1.1rem"
                                         }}
                                     >
-                                        Continue with Google
+                                        <FcGoogle /> Continue with Google
                                     </button>
                                     <button
                                         type="button"
@@ -409,12 +402,13 @@ const AuthPage = () => {
                                         style={{
                                             margin: "5px",
                                             padding: "10px 20px",
-                                            backgroundColor: "#6c757d",
+                                            backgroundColor: "#2c3e50",
                                             color: "white",
                                             border: "none",
                                             borderRadius: "4px",
                                             cursor: "pointer",
-                                            fontWeight: "bold"
+                                            fontWeight: "bold",
+                                            fontSize: "1.1rem"
                                         }}
                                     >
                                         Continue as Guest

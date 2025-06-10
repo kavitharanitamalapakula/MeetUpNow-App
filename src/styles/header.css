@@ -8,7 +8,7 @@
 .menu-btn {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 2rem;
   color: white;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -17,14 +17,14 @@
 }
 
 .logo {
-  height: 36px;
-  width: 55px;
+  height: 3rem;
+  width: 5rem;
   object-fit: contain;
   border-radius: 6px;
 }
 
 .app-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   margin: 0;
   user-select: none;
@@ -33,9 +33,9 @@
 .logout-btn {
   background-color: #ff4d4f;
   border: none;
-  padding: 8px 16px;
+  padding: 5px 10px;
   border-radius: 6px;
-  font-weight: 600;
+  font-size: 1.4rem;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -178,11 +178,12 @@
 }
 
 @media (max-width: 768px) {
-  .left-section{
-    img{
+  .left-section {
+    img {
       display: none;
     }
   }
+
   .menu-btn {
     display: block;
   }

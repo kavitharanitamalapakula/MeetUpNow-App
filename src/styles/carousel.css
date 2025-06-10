@@ -4,7 +4,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   max-width: 400px;
-  margin: auto;
+  height: fit-content;
   transition: all 0.5s ease-in-out;
 }
 
@@ -21,14 +21,14 @@
 }
 
 .custom-carousel h5 {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 8px;
 }
 
 .custom-carousel p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
   max-width: 90%;
   margin: 0 auto;

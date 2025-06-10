@@ -14,7 +14,7 @@ const carouselItems = [
     },
     {
         title: 'Start an instant meeting',
-        description: 'Create a meeting and start right away with a single click.Enter into Meeting.',
+        description: 'Create a meeting and start right away with a single click.',
         image: 'https://www.gstatic.com/meet/user_edu_safety_light_e04a2bbb449524ef7e49ea36d5f25b65.svg',
     },
 ];

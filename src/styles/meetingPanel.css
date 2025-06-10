@@ -1,11 +1,10 @@
 .new-meeting-panel {
   background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   max-width: 400px;
   height: fit-content;
-  margin: 2rem auto;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -18,7 +17,7 @@
 }
 
 .description {
-  font-size: 1.1rem;
+  font-size: 1.2rem !important;
   color: #34495e;
   margin-bottom: 2rem;
 }
@@ -28,7 +27,7 @@
   color: white;
   padding: 0.65rem 1.4rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   border: none;
   border-radius: 8px;
   display: inline-flex;
@@ -65,15 +64,15 @@
 
 .popup-option {
   width: 100%;
-    text-align: left;
-    padding: 10px 12px;
-    border: none;
-    background-color: transparent;
-    display: flex;
-    font-size: 0.95rem;
-    color: #333;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
+  text-align: left;
+  padding: 10px 12px;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  font-size: 0.95rem;
+  color: #333;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
 .popup-option:hover {
@@ -115,9 +114,9 @@
   background-color: #0d6efd;
   color: white;
   border: none;
-  padding: 0 1.4rem;
+  padding: 0.4rem 1.4rem;
   border-radius: 8px;
-  font-weight: 600;
+  font-size: 1.5rem !important;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -136,6 +135,7 @@
   cursor: not-allowed;
   box-shadow: none;
   color: #e0e0e0;
+  font-size: 1.4rem;
 }
 
 .join-icon {
@@ -168,6 +168,7 @@
     opacity: 0;
     transform: translateX(-50%) translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);

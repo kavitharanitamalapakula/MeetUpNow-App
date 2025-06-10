@@ -54,7 +54,7 @@
 .form-label {
     display: block;
     margin-bottom: 0.5em;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .form-input {
@@ -66,24 +66,6 @@
     background-color: rgba(255, 255, 255, 0.8);
     color: #333;
     font-size: 1rem;
-}
-
-.auth-button {
-    width: 100%;
-    padding: 0.7em;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    background-color: #704264;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
-}
-
-.auth-button.button-hover {
-    background-color: #53354a;
 }
 
 .auth-toggle-text {
