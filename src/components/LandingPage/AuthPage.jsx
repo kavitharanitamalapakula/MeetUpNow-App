@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logoDesktop from '../../assets/Transparent.png';
 import logoMobile from '../../assets/ResponsiveLogo.png';
-import "../../styles/authPage.css"
+import "../../styles/authpage.css"
 import { useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../App';
 import { googleSignIn, sendPasswordResetEmail } from '../../services/authServices';
