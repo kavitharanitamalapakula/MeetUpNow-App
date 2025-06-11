@@ -168,7 +168,8 @@ const MeetingPanel = () => {
                 return;
             }
             const meetingData = await meetingResponse.json();
-            if (!meetingData.isActive) {
+            console.log(meetingData.status)
+            if (!meetingData.status) {
                 setError('Meeting is not active');
                 setLoading(false);
                 return;
@@ -257,7 +258,28 @@ const MeetingPanel = () => {
             )}
 
 
-            {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
+            {error && (
+                <div className="error-message" style={{ color: 'red' }}>
+                    <p>{error}</p>
+                    {error === 'Meeting is not active' && (
+                        <button
+                            onClick={handleJoinMeeting}
+                            disabled={loading}
+                            style={{
+                                marginTop: '8px',
+                                padding: '6px 12px',
+                                backgroundColor: '#007bff',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: loading ? 'not-allowed' : 'pointer'
+                            }}
+                        >
+                            {loading ? 'Checking...' : 'Retry'}
+                        </button>
+                    )}
+                </div>
+            )}
 
             <div className="join-meeting-container">
                 <input
@@ -267,9 +289,9 @@ const MeetingPanel = () => {
                     value={meetingId}
                     onChange={(e) => setMeetingId(e.target.value)}
                 />
-                <button onClick={handleJoinMeeting} className="join-button" disabled={!meetingId.trim()}>
+                <button onClick={handleJoinMeeting} className="join-button" disabled={!meetingId.trim() || loading}>
                     <FaReply className="join-icon" />
-                    Join
+                    {loading ? 'Joining...' : 'Join'}
                 </button>
             </div>
 
