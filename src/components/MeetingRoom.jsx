@@ -167,8 +167,15 @@ const MeetingRoom = () => {
         showTurnOffRemoteMicrophoneButton: isHost,
         showRemoveUserButton: isHost,
         videoScreenConfig: 'fill',
-        onLeaveRoom: () => {
-          
+        onLeaveRoom: async () => {
+          // console.log(token)
+          try {
+            await axios.post(`${baseUrl}/meetings/endmeet/${meetingId}`, {}, {
+              headers: { Authorization: `${token}` }
+            });
+          } catch (error) {
+            alert('Failed to end the meeting properly. You will be redirected to the dashboard.');
+          }
           navigate("/dashboard");
         },
       });
@@ -185,10 +192,7 @@ const MeetingRoom = () => {
   };
 
   useEffect(() => {
-
-
     myMeeting();
-
     return () => {
       if (zpInstance.current) {
         try {
