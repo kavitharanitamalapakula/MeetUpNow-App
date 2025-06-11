@@ -21,13 +21,13 @@ const MeetingRoom = () => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const savedToken = userInfo?.token;
-    const userId = userInfo.user?.id || userInfo.user?._id;
-
     if (!savedToken) {
       localStorage.setItem('roomID', meetingId);
       navigate('/');
       return;
     }
+    const userId = userInfo.user?.id || userInfo.user?._id;
+
     setToken(savedToken);
     localStorage.removeItem('roomID');
     const fetchUser = async () => {
@@ -174,10 +174,10 @@ const MeetingRoom = () => {
               headers: { Authorization: `Bearer ${token}` }
             });
           } catch (error) {
-            console.log("You will be redirected to the dashboard.")
-          } finally {
-            navigate("/dashboard");
+            alert('Failed to end the meeting properly. You will be redirected to the dashboard.');
           }
+          localStorage.clear()
+          navigate("/dashboard");
         },
       });
 
