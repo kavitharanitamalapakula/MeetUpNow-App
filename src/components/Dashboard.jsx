@@ -35,17 +35,18 @@ const Dashboard = () => {
       <Header toggleSidebar={toggleSidebar} />
       <WelcomePopup />
 
-      <div className="dashboard-body">            
+      <div className="dashboard-body">
         <Sidebar
           isOpen={isSidebarOpen}
           onMenuSelect={handleMenuSelect}
           ongoingMeetings={ongoingMeetings}
-        />                                   
+        />
+        {isSidebarOpen && <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
         <main className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           {selectedMenu === 'home' && <Home onMeetingAdd={handleMeetingAdd} />}
           {selectedMenu === 'meeting' && <MeetingSchedule meetings={meetings} />}
           {selectedMenu === 'profile' && <ProfileCard />}
-        </main>                        
+        </main>
       </div>
     </div>
   );

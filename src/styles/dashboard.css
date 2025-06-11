@@ -59,4 +59,15 @@
   .main-content {
     padding: 15px;
   }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 70px;
+    /* height of header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
 }

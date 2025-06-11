@@ -21,13 +21,13 @@ const MeetingRoom = () => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const savedToken = userInfo?.token;
+    const userId = userInfo.user?.id || userInfo.user?._id;
+
     if (!savedToken) {
       localStorage.setItem('roomID', meetingId);
       navigate('/');
       return;
     }
-    const userId = userInfo.user?.id || userInfo.user?._id;
-
     setToken(savedToken);
     localStorage.removeItem('roomID');
     const fetchUser = async () => {
@@ -170,7 +170,7 @@ const MeetingRoom = () => {
         onLeaveRoom: async () => {
           // console.log(token)
           try {
-            await axios.post(`${baseUrl}/meetings/endmeet/${meetingId}`, {}, {
+            await axios.post(`${baseUrl}/meetings/endmeet/${meetingId}`, {
               headers: { Authorization: `Bearer ${token}` }
             });
           } catch (error) {
