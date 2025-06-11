@@ -177,7 +177,6 @@ const MeetingRoom = () => {
             console.log("You will be redirected to the dashboard.")
           } finally {
             navigate("/dashboard");
-
           }
         },
       });

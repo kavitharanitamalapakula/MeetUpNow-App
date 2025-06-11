@@ -9,8 +9,8 @@ const Dashboard = lazy(() => import('./components/Dashboard'));
 const AuthPage = lazy(() => import('./components/LandingPage/AuthPage'));
 const MeetingRoom = lazy(() => import('./components/MeetingRoom'));
 
-export const baseUrl = "http://localhost:5000";
-// export const baseUrl = "https://meetupnow-server.onrender.com"
+// export const baseUrl = "http://localhost:5000";
+export const baseUrl = "https://meetupnow-server.onrender.com"
 
 function App() {
   return (
