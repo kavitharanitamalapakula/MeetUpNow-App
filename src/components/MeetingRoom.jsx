@@ -171,12 +171,14 @@ const MeetingRoom = () => {
           // console.log(token)
           try {
             await axios.post(`${baseUrl}/meetings/endmeet/${meetingId}`, {}, {
-              headers: { Authorization: `${token}` }
+              headers: { Authorization: `Bearer ${token}` }
             });
           } catch (error) {
-            alert('Failed to end the meeting properly. You will be redirected to the dashboard.');
+            console.log("You will be redirected to the dashboard.")
+          } finally {
+            navigate("/dashboard");
+
           }
-          navigate("/dashboard");
         },
       });
 

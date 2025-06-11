@@ -56,7 +56,7 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
   };
 
   const getMeetingStatus = (meeting) => {
-    if (meeting.status === "inactive") return "Completed";
+    if (meeting.status === "ended") return "Completed";
     if (meeting.status === "active") return "Now";
 
     const now = new Date();
@@ -91,7 +91,7 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
     fetchMeetings();
   }, []);
 
-  if (loading) return <p style={{display:"flex", justifyContent:"center",alignItems:"center"}}>Loading meetings...</p>;
+  if (loading) return <p style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>Loading meetings...</p>;
   if (error) return <p>{error}</p>;
 
   return (
