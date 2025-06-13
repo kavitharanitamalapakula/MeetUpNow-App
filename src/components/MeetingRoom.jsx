@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { APP_ID, SERVER_SECRET } from './constants';
 import { baseUrl } from '../App';
+import "../styles/meetingroom.css"
 
 const MeetingRoom = () => {
   const { id: meetingId } = useParams();
