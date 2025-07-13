@@ -43,13 +43,6 @@ const MeetingPanel = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [showOptions]);
 
-    // useEffect(() => {
-    //     if (showOptions) {
-    //         audioRef.current.currentTime = 0;
-    //         audioRef.current.play();
-    //     }
-    // }, [showOptions]);
-
     useEffect(() => {
         if (showModal) {
             audioRef.current.currentTime = 0;
