@@ -79,7 +79,7 @@ const MeetingPanel = () => {
     const handleMeetingRoom = async () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-            // First, create a meeting
+            //create a meeting
             const createResponse = await fetch(`${baseUrl}/meetings`, {
                 method: 'POST',
                 headers: {
@@ -104,7 +104,7 @@ const MeetingPanel = () => {
             const meetingId = createData.meetingId;
             if (!meetingId) throw new Error('Failed to get meeting ID');
 
-            // Then, start the meeting
+            // start the meeting
             const startResponse = await fetch(`${baseUrl}/meetings/startmeet/${meetingId}`, {
                 method: 'POST',
                 headers: {

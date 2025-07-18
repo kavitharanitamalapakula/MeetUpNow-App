@@ -6,7 +6,6 @@ const WelcomePopup = () => {
   const [username, setUsername] = useState('');
   const [visible, setVisible] = useState(true);
 
-  // Create audio object
   const audio = new Audio(bubbleSound);
 
   useEffect(() => {
@@ -35,7 +34,6 @@ const WelcomePopup = () => {
   }, []);
 
   useEffect(() => {
-    // Play sound when popup becomes visible
     if (visible) {
       audio.play();
     }

@@ -73,7 +73,6 @@ const AuthPage = () => {
             if (!value.trim()) {
                 error = 'Password is required';
             } else if (!passwordPattern.test(value)) {
-                // Show detailed error only if not in login mode
                 if (!isLogin) {
                     error = 'Password must be 8-16 chars, with uppercase, number & special char';
                 } else {
@@ -189,7 +188,6 @@ const AuthPage = () => {
             const { user } = await googleSignIn();
             const idToken = await user.getIdToken();
 
-            // Call your backend API to store user in MongoDB
             const res = await fetch(`${baseUrl}/users/google-login`, {
                 method: "POST",
                 headers: {

@@ -43,8 +43,6 @@ const MeetingSchedule = ({ meetings: propMeetings }) => {
       setStartMessage({ type: 'success', text: 'Meeting started successfully.' });
       fetchMeetings();
       setTimeout(() => setStartMessage(null), 3000);
-
-      // Optionally navigate to the meeting room
       navigate(`/room/${meetingId}`, { state: { roomId: meetingId } });
     } catch (error) {
       console.error('Error starting meeting:', error);
